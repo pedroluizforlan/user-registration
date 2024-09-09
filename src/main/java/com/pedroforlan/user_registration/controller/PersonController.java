@@ -18,33 +18,34 @@ public class PersonController {
 
 
     @GetMapping
-    public ResponseEntity<List<PersonDTO>> findAll(){
+    public ResponseEntity<List<PersonDTO>> findAll() {
         return ResponseEntity.ok(personService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonDTO> findById(@PathVariable Long id){
+    public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(personService.findById(id));
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<PersonDTO> findByCpf(@PathVariable String cpf){
+    public ResponseEntity<PersonDTO> findByCpf(@PathVariable String cpf) {
         return ResponseEntity.ok(personService.findByCpf(cpf));
     }
 
+    @CrossOrigin(origins = "http://IP:8081")
     @PostMapping
-    public ResponseEntity<PersonDTO> create (@RequestBody PersonDTO personDTO){
+    public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO) {
         personDTO.setRegistrationDate(new Date());
         return ResponseEntity.ok(personService.save(personDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO personDTO, @PathVariable Long id){
-        return ResponseEntity.ok(personService.update(id,personDTO));
+    public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO personDTO, @PathVariable Long id) {
+        return ResponseEntity.ok(personService.update(id, personDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();
     }
